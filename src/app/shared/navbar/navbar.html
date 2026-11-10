@@ -1,0 +1,21 @@
+<nav class="navbar navbar-expand-lg navbar-manila">
+  <div class="container">
+    <a class="navbar-brand marca" routerLink="/">
+      <span class="logo">M</span> MANILA
+    </a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menuManila">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="menuManila">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link" routerLink="/" routerLinkActive="activo" [routerLinkActiveOptions]="{ exact: true }">Inicio</a></li>
+        <li class="nav-item"><a class="nav-link" routerLink="/comidas" routerLinkActive="activo">Comidas</a></li>
+        <li class="nav-item"><a class="nav-link" routerLink="/bebidas" routerLinkActive="activo">Bebidas</a></li>
+        <li class="nav-item"><a class="nav-link" routerLink="/pedidos" routerLinkActive="activo">Pedidos</a></li>
+        <li class="nav-item"><a class="nav-link" routerLink="/juego" routerLinkActive="activo">Juego</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>

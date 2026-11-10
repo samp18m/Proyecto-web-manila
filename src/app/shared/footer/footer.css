@@ -1,0 +1,43 @@
+.footer-manila {
+  background-color: #173b2c;
+  color: #f5e6c8;
+  padding: 50px 0 15px;
+  margin-top: 50px;
+}
+
+.footer-logo {
+  color: #d6a85f;
+  font-size: 30px;
+  font-weight: bold;
+  letter-spacing: 3px;
+  margin-bottom: 20px;
+}
+
+.footer-manila h5 {
+  color: #d6a85f;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.footer-manila p {
+  font-size: 14px;
+  line-height: 1.8;
+}
+
+.footer-links {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-links li {
+  margin-bottom: 10px;
+}
+
+.footer-links a {
+  color: #f5e6c8;
+  text-decoration: none;
+}
+
+.footer-links a:hover {
+  color: #d6a85f;
+}

@@ -1,0 +1,78 @@
+<section class="hero-manila">
+    <div class="container text-center">
+
+        <h1>Bienvenidos a MANILA</h1>
+
+        <p>
+            Descubre nuestros mejores platos y bebidas.
+        </p>
+
+    </div>
+</section>
+
+<section class="container py-5">
+
+    <h2 class="text-center mb-5">
+        ⭐ Especialidades del restaurante
+    </h2>
+
+    <div class="row justify-content-center g-5">
+
+        <!-- Plato -->
+        <div class="col-lg-5" *ngIf="plato">
+
+            <div class="card shadow h-100">
+
+                <img
+                [src]="plato.strMealThumb"
+                class="card-img-top imagen-api">
+
+                <div class="card-body text-center">
+
+                    <h3>{{plato.strMeal}}</h3>
+
+                    <span class="badge bg-success">
+                        {{plato.strCategory}}
+                    </span>
+
+                    <p class="mt-3">
+                        {{plato.strInstructions | slice:0:180}}...
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Bebida -->
+        <div class="col-lg-5" *ngIf="bebida">
+
+            <div class="card shadow h-100">
+
+                <img
+                [src]="bebida.strDrinkThumb"
+                class="card-img-top imagen-api">
+
+                <div class="card-body text-center">
+
+                    <h3>{{bebida.strDrink}}</h3>
+
+                    <span class="badge bg-warning text-dark">
+                        {{bebida.strCategory}}
+                    </span>
+
+                    <p class="mt-3">
+                        Tipo:
+                        {{bebida.strAlcoholic}}
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>

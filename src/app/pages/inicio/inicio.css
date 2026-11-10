@@ -1,0 +1,48 @@
+.hero-manila{
+
+    background:#173b2c;
+    color:white;
+    padding:90px 20px;
+}
+
+.hero-manila h1{
+
+    font-size:60px;
+    font-weight:bold;
+}
+
+.hero-manila p{
+
+    color:#d6a85f;
+    font-size:24px;
+}
+
+.imagen-api{
+
+    height: 150px;
+    object-fit:cover;
+}
+
+.card{
+
+    border:none;
+    border-radius:20px;
+    overflow:hidden;
+    transition:.3s;
+}
+
+.card:hover{
+
+    transform:translateY(-10px);
+}
+
+.card-body{
+
+    padding:25px;
+}
+
+.badge{
+
+    font-size:15px;
+    padding:10px 18px;
+}

@@ -1,0 +1,38 @@
+<section class="container py-5">
+  <h1 class="text-center mb-4">Realiza tu pedido</h1>
+
+  <div class="row mb-4">
+    <div class="col-md-4">
+      <input class="form-control" [(ngModel)]="nombre" placeholder="Nombre completo">
+    </div>
+    <div class="col-md-4">
+      <input class="form-control" [(ngModel)]="celular" placeholder="Celular">
+    </div>
+    <div class="col-md-4">
+      <input class="form-control" [(ngModel)]="direccion" placeholder="Dirección">
+    </div>
+  </div>
+
+  <div *ngIf="cargando" class="text-center">Cargando productos...</div>
+  <div *ngIf="mensaje" class="text-center">{{ mensaje }}</div>
+
+  <div class="row g-4">
+    <div class="col-md-4" *ngFor="let producto of productos">
+      <div class="card h-100">
+        <img [src]="producto.imagen" class="card-img-top" [alt]="producto.nombre">
+        <div class="card-body">
+          <h5>{{ producto.nombre }}</h5>
+          <p>{{ producto.tipo }}</p>
+          <p class="fw-bold">$ {{ producto.precio }}</p>
+          <label>Cantidad</label>
+          <input type="number" min="0" class="form-control" [(ngModel)]="producto.cantidad">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mt-4 p-4 bg-white rounded shadow-sm">
+    <h3>Total: $ {{ total }}</h3>
+    <button class="btn btn-dark" (click)="confirmarPedido()">Confirmar pedido y descargar PDF</button>
+  </div>
+</section>

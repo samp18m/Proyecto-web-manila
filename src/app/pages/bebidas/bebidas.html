@@ -1,0 +1,59 @@
+<section class="container py-5">
+  <h1 class="text-center mb-4">Bebidas</h1>
+
+  <div class="row mb-3">
+    <div class="col-md-6">
+      <input class="form-control" [(ngModel)]="busqueda" placeholder="Buscar por nombre">
+    </div>
+    <div class="col-md-6">
+      <button class="btn btn-success me-2" (click)="buscarPorNombre()">Buscar</button>
+      <button class="btn btn-secondary" (click)="limpiarBusqueda()">Limpiar</button>
+    </div>
+  </div>
+
+  <div class="row mb-3">
+    <div class="col-md-6">
+      <input class="form-control" [(ngModel)]="ingrediente" placeholder="Buscar por ingrediente">
+    </div>
+    <div class="col-md-6">
+      <button class="btn btn-warning" (click)="buscarPorIngrediente()">Buscar ingrediente</button>
+    </div>
+  </div>
+
+  <div class="row mb-4">
+    <div class="col-md-6">
+      <select class="form-select" [(ngModel)]="tipo" (change)="cargarBebidas()">
+        <option value="">Todos los tipos</option>
+        <option value="Alcoholic">Alcohólica</option>
+        <option value="Non_Alcoholic">Sin alcohol</option>
+      </select>
+    </div>
+
+    <div class="col-md-6">
+      <select class="form-select" [(ngModel)]="categoria" (change)="cargarBebidas()">
+        <option value="">Todas las categorías</option>
+        <option value="Ordinary_Drink">Bebida ordinaria</option>
+        <option value="Cocktail">Cóctel</option>
+      </select>
+    </div>
+  </div>
+
+  <p *ngIf="cargando" class="text-center">Cargando bebidas...</p>
+  <p *ngIf="mensaje" class="text-center">{{ mensaje }}</p>
+
+  <div class="row g-4">
+    <div class="col-md-4" *ngFor="let bebida of bebidas">
+      <div class="card h-100">
+        <img [src]="bebida.strDrinkThumb" class="card-img-top" [alt]="bebida.strDrink">
+        <div class="card-body">
+          <h5 class="card-title">{{ bebida.strDrink }}</h5>
+          <p class="fw-bold">$ {{ bebida.precio }}</p>
+          <button class="btn btn-dark" (click)="verIngredientes(bebida)">Ver ingredientes</button>
+          <ul class="mt-3" *ngIf="bebida.mostrarIngredientes">
+            <li *ngFor="let ing of bebida.ingredientes">{{ ing }}</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
