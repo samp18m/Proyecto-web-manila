@@ -1,78 +1,47 @@
-<section class="hero-manila">
-    <div class="container text-center">
+<div class="inicio-container">
 
-        <h1>Bienvenidos a MANILA</h1>
-
-        <p>
-            Descubre nuestros mejores platos y bebidas.
-        </p>
-
+  <section class="hero">
+    <div class="hero-texto">
+      <h1>  MANILA.  </h1>
+      <p>
+        Un espacio para disfrutar platos y bebidas especiales,
+        con una experiencia visual y gastronómica única.
+      </p>
     </div>
-</section>
+  </section>
 
-<section class="container py-5">
+  <section class="galeria">
+    <h2>Conoce nuestro restaurante</h2>
 
-    <h2 class="text-center mb-5">
-        ⭐ Especialidades del restaurante
-    </h2>
-
-    <div class="row justify-content-center g-5">
-
-        <!-- Plato -->
-        <div class="col-lg-5" *ngIf="plato">
-
-            <div class="card shadow h-100">
-
-                <img
-                [src]="plato.strMealThumb"
-                class="card-img-top imagen-api">
-
-                <div class="card-body text-center">
-
-                    <h3>{{plato.strMeal}}</h3>
-
-                    <span class="badge bg-success">
-                        {{plato.strCategory}}
-                    </span>
-
-                    <p class="mt-3">
-                        {{plato.strInstructions | slice:0:180}}...
-                    </p>
-
-                </div>
-
-            </div>
-
-        </div>
-
-        <!-- Bebida -->
-        <div class="col-lg-5" *ngIf="bebida">
-s
-            <div class="card shadow h-100">
-
-                <img
-                [src]="bebida.strDrinkThumb"
-                class="card-img-top imagen-api">
-
-                <div class="card-body text-center">
-
-                    <h3>{{bebida.strDrink}}</h3>
-
-                    <span class="badge bg-warning text-dark">
-                        {{bebida.strCategory}}
-                    </span>
-
-                    <p class="mt-3">
-                        Tipo:
-                        {{bebida.strAlcoholic}}
-                    </p>
-
-                </div>
-
-            </div>
-
-        </div>
-
+    <div class="galeria-grid">
+      <img src="manila-restaurante.jpg" alt="Foto del restaurante">
+      <img src="manila-comida.jpg" alt="Foto de la comida">
+      <img src="manila-bebida.jpg" alt="Foto de la bebida">
     </div>
+  </section>
 
-</section>
+  <section class="destacados">
+    <h2>Lo más destacado</h2>
+
+    <div class="cards">
+      <article class="card" *ngIf="platoEstrella">
+        <img [src]="platoEstrella.imagen" [alt]="platoEstrella.nombre">
+        <div class="card-content">
+          <h3>Plato estrella</h3>
+          <h4>{{ platoEstrella.nombre }}</h4>
+          <p><strong>Categoría:</strong> {{ platoEstrella.categoria }}</p>
+          <p><strong>Origen:</strong> {{ platoEstrella.origen }}</p>
+        </div>
+      </article>
+
+      <article class="card" *ngIf="bebidaEstrella">
+        <img [src]="bebidaEstrella.imagen" [alt]="bebidaEstrella.nombre">
+        <div class="card-content">
+          <h3>Bebida estrella</h3>
+          <h4>{{ bebidaEstrella.nombre }}</h4>
+          <p><strong>Categoría:</strong> {{ bebidaEstrella.categoria }}</p>
+          <p><strong>Tipo:</strong> {{ bebidaEstrella.tipo }}</p>
+        </div>
+      </article>
+    </div>
+  </section>

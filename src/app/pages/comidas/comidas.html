@@ -1,44 +1,199 @@
-<section class="container py-5">
-  <h1 class="text-center mb-4">Comidas</h1>
 
-  <div class="row mb-4">
-    <div class="col-md-6">
-      <input class="form-control" [(ngModel)]="busqueda" placeholder="Buscar por nombre">
+<div class="comidas-container">
+
+  <h1>Nuestras mejores comidas</h1>
+
+  <p>
+    Descubre nuestra variedad de platos y encuentra
+    tus favoritos en Manila.
+  </p>
+
+  <!-- BUSCADORES -->
+
+  <div class="buscadores">
+
+    <div class="bloque-busqueda">
+
+      <label>Buscar comida por nombre</label>
+
+      <div class="grupo">
+
+        <input
+          type="text"
+          name="busqueda"
+          [(ngModel)]="busqueda"
+          placeholder="Nombre de la comida..."
+          (keyup.enter)="buscarPorNombre()"
+        >
+
+        <button type="button" (click)="buscarPorNombre()">
+          Buscar
+        </button>
+
+      </div>
+
     </div>
-    <div class="col-md-6">
-      <button class="btn btn-success me-2" (click)="buscarPorNombre()">Buscar</button>
-      <button class="btn btn-secondary me-2" (click)="limpiarBusqueda()">Limpiar</button>
+
+    <div class="bloque-busqueda">
+
+      <label>Buscar comida por ingrediente</label>
+
+      <div class="grupo">
+
+        <input
+          type="text"
+          name="ingrediente"
+          [(ngModel)]="ingrediente"
+          placeholder="Ej: chicken, rice, garlic..."
+          (keyup.enter)="buscarPorIngrediente()"
+        >
+
+        <button type="button" (click)="buscarPorIngrediente()">
+          Buscar
+        </button>
+
+      </div>
+
     </div>
+
+    <button
+      type="button"
+      class="limpiar"
+      (click)="limpiarBusqueda()"
+    >
+      Ver todas las categorías
+    </button>
+
   </div>
 
-  <div class="row mb-4">
-    <div class="col-md-6">
-      <input class="form-control" [(ngModel)]="ingrediente" placeholder="Buscar por ingrediente">
-    </div>
-    <div class="col-md-6">
-      <button class="btn btn-warning" (click)="buscarPorIngrediente()">Buscar ingrediente</button>
-    </div>
+  <!-- CARGANDO -->
+
+  <div *ngIf="cargando" class="estado">
+    <p>Buscando comidas...</p>
   </div>
 
-  <p *ngIf="cargando" class="text-center">Cargando comidas...</p>
-  <p *ngIf="mensaje" class="text-center">{{ mensaje }}</p>
+  <!-- MENSAJE -->
 
-  <div class="row g-4">
-    <div class="col-md-4" *ngFor="let comida of comidas">
-      <div class="card h-100">
-        <img [src]="comida.strMealThumb" class="card-img-top" [alt]="comida.strMeal">
-        <div class="card-body">
-          <h5 class="card-title">{{ comida.strMeal }}</h5>
-          <p class="fw-bold">$ {{ comida.precio }}</p>
-          <button class="btn btn-dark" (click)="verIngredientes(comida)">
-            {{ comida.mostrarIngredientes ? 'Ocultar ingredientes' : 'Ver ingredientes' }}
+  <div *ngIf="mensaje" class="estado error">
+    {{ mensaje }}
+  </div>
+
+  <!-- VISTA POR CATEGORÍAS -->
+
+  <ng-container *ngIf="vista === 'categorias'">
+
+    <section
+      *ngFor="let seccion of secciones"
+      class="categoria"
+    >
+
+      <h2>
+        {{ seccion.categoria }}
+        ({{ seccion.comidas.length }})
+      </h2>
+
+      <div class="grid">
+
+      <article class="card" *ngFor="let comida of seccion.comidas">
+
+  <img
+    [src]="comida.strMealThumb"
+    [alt]="comida.strMeal"
+    loading="lazy"
+  >
+
+  <div class="contenido">
+
+    <h3>{{ comida.strMeal }}</h3>
+
+    <p class="precio">
+      Precio:
+      <strong>
+${{ comida.precio | number:'1.0-0' }} COP      </strong>
+    </p>
+
+    <button type="button" (click)="verIngredientes(comida)">
+      {{ comida.mostrarIngredientes ? 'Ocultar ingredientes' : 'Ver ingredientes' }}
+    </button>
+
+    <ul *ngIf="comida.mostrarIngredientes" class="ingredientes">
+      <li *ngFor="let ing of comida.ingredientes">
+        {{ ing }}
+      </li>
+    </ul>
+
+  </div>
+</article>
+
+      </div>
+
+    </section>
+
+  </ng-container>
+
+  <!-- VISTA DE RESULTADOS DE BÚSQUEDA -->
+
+  <ng-container *ngIf="vista === 'resultados'">
+
+    <h2 *ngIf="comidas.length > 0">
+      Resultados encontrados: {{ comidas.length }}
+    </h2>
+
+    <div class="grid">
+
+      <article
+        class="card"
+        *ngFor="let comida of comidas"
+      >
+
+        <img
+          [src]="comida.strMealThumb"
+          [alt]="comida.strMeal"
+          loading="lazy"
+        >
+
+        <div class="contenido">
+
+          <h3>{{ comida.strMeal }}</h3>
+
+          <p *ngIf="comida.categoria">
+            <strong>Categoría:</strong>
+            {{ comida.categoria }}
+          </p>
+
+          <p>
+            <strong>Precio:</strong>
+            ${{ comida.precio | number:'1.0-0':'es-CO' }}
+          </p>
+
+          <button
+            type="button"
+            (click)="verIngredientes(comida)"
+          >
+            {{
+              comida.mostrarIngredientes
+                ? 'Ocultar ingredientes'
+                : 'Ver ingredientes'
+            }}
           </button>
 
-          <ul class="mt-3" *ngIf="comida.mostrarIngredientes">
-            <li *ngFor="let ing of comida.ingredientes">{{ ing }}</li>
+          <ul
+            *ngIf="comida.mostrarIngredientes"
+            class="ingredientes"
+          >
+
+            <li *ngFor="let ing of comida.ingredientes">
+              {{ ing }}
+            </li>
+
           </ul>
+
         </div>
-      </div>
+
+      </article>
+
     </div>
-  </div>
-</section>
+
+  </ng-container>
+
+</div>

@@ -1,4 +1,311 @@
-.card img {
-  height: 220px;
+
+.bebidas-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+.encabezado {
+  margin-bottom: 30px;
+}
+
+.subtitulo {
+  color: #b58a45;
+  font-size: 12px;
+  letter-spacing: 3px;
+  font-weight: 700;
+}
+
+.encabezado h1 {
+  color: #173b2c;
+  font-size: 2.5rem;
+  margin: 10px 0;
+}
+
+.encabezado p {
+  color: #666;
+  line-height: 1.6;
+}
+
+/* FILTROS */
+
+.filtros {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+  background: #f7f7f5;
+  padding: 22px;
+  border-radius: 16px;
+  margin-bottom: 28px;
+}
+
+.filtro label {
+  display: block;
+  font-size: 14px;
+  font-weight: 700;
+  color: #173b2c;
+  margin-bottom: 9px;
+}
+
+.grupo {
+  display: flex;
+  gap: 8px;
+}
+
+.grupo input,
+.filtro select {
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 9px;
+  background: white;
+  font-size: 14px;
+}
+
+.grupo button {
+  border: none;
+  background: #173b2c;
+  color: white;
+  padding: 10px 16px;
+  border-radius: 9px;
+  cursor: pointer;
+}
+
+.grupo button:hover {
+  background: #285640;
+}
+
+.btn-limpiar {
+  justify-self: start;
+  border: none;
+  padding: 11px 18px;
+  border-radius: 9px;
+  background: #d6a85f;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* CARGA */
+
+.estado {
+  padding: 20px;
+  background: #f7f7f5;
+  border-radius: 12px;
+  margin-bottom: 25px;
+}
+
+.estado h3 {
+  color: #173b2c;
+}
+
+.barra-progreso {
+  background: #ddd;
+  height: 9px;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.barra-progreso-interna {
+  height: 100%;
+  background: #d6a85f;
+  transition: width 0.3s ease;
+}
+
+.mensaje {
+  background: #fff3dc;
+  color: #75521a;
+  padding: 13px;
+  border-radius: 9px;
+  margin-bottom: 18px;
+}
+
+/* RESULTADOS */
+
+.resultado-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.resultado-header h2 {
+  color: #173b2c;
+}
+
+.resultado-header span {
+  color: #777;
+  font-size: 14px;
+}
+
+.grid-bebidas {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(250px, 1fr)
+  );
+  gap: 22px;
+}
+
+/* TARJETAS */
+
+.card-bebida {
+  background: white;
+  border-radius: 17px;
+  overflow: hidden;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s ease;
+}
+
+.card-bebida:hover {
+  transform: translateY(-4px);
+}
+
+.card-bebida img {
+  width: 100%;
+  height: 230px;
   object-fit: cover;
+}
+
+.contenido {
+  padding: 17px;
+}
+
+.categoria {
+  color: #b58a45;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.contenido h3 {
+  color: #173b2c;
+  font-size: 19px;
+  margin: 10px 0;
+}
+
+.etiquetas {
+  margin: 12px 0;
+}
+
+.etiquetas span {
+  display: inline-block;
+  padding: 6px 10px;
+  border-radius: 20px;
+  font-size: 11px;
+  background: #eee;
+  color: #555;
+}
+
+.etiquetas .alcoholica {
+  background: #f8e9e5;
+  color: #963e2b;
+}
+
+.etiquetas .sin-alcohol {
+  background: #e3f1e7;
+  color: #286340;
+}
+
+/* PRECIO */
+
+.precio {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid #eee;
+  border-bottom: 1px solid #eee;
+  padding: 13px 0;
+  margin: 14px 0;
+  color: #173b2c;
+}
+
+.precio strong {
+  font-size: 17px;
+  color: #b58a45;
+}
+
+/* INGREDIENTES */
+
+.btn-ingredientes {
+  width: 100%;
+  padding: 11px;
+  background: #173b2c;
+  color: white;
+  border: none;
+  border-radius: 9px;
+  cursor: pointer;
+}
+
+.btn-ingredientes:hover {
+  background: #285640;
+}
+
+.lista-ingredientes {
+  margin-top: 16px;
+  padding: 12px;
+  background: #f7f7f5;
+  border-radius: 10px;
+}
+
+.lista-ingredientes h4 {
+  color: #173b2c;
+  margin-top: 0;
+}
+
+.lista-ingredientes ul {
+  padding-left: 18px;
+}
+
+.lista-ingredientes li {
+  font-size: 13px;
+  margin-bottom: 7px;
+  color: #555;
+}
+
+.sin-resultados {
+  text-align: center;
+  padding: 35px 15px;
+  background: #f7f7f5;
+  border-radius: 14px;
+}
+
+.sin-resultados h3 {
+  color: #173b2c;
+}
+
+.sin-resultados button {
+  padding: 11px 18px;
+  border: none;
+  border-radius: 9px;
+  background: #173b2c;
+  color: white;
+  cursor: pointer;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 650px) {
+
+  .bebidas-container {
+    padding: 15px;
+  }
+
+  .encabezado h1 {
+    font-size: 2rem;
+  }
+
+  .filtros {
+    grid-template-columns: 1fr;
+    padding: 15px;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
 }

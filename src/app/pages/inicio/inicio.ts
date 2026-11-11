@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-inicio',
@@ -10,25 +9,65 @@ import { HttpClient } from '@angular/common/http';
   styleUrl: './inicio.css'
 })
 export class Inicio implements OnInit {
+  platoEstrella: any = null;
+  bebidaEstrella: any = null;
+  cargando = true;
+  mensaje = '';
 
-  plato: any = null;
-  bebida: any = null;
+  fotosRestaurante = [
+    '/manila-restaurante.jpg',
+    '/manila-comida.jpg',
+    '/manila-bebiba.jpg'
+  ];
 
-  constructor(private http: HttpClient) {}
+  async ngOnInit() {
+    try {
+      const [platoRes, bebidaRes] = await Promise.all([
+        fetch('https://www.themealdb.com/api/json/v1/1/search.php?s='),
+        fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=margarita')
+      ]);
 
-  ngOnInit(): void {
-    console.log('inicio ejecutado');
+      const platoData = await platoRes.json();
+      const bebidaData = await bebidaRes.json();
 
-    this.http
-      .get<any>('https://www.themealdb.com/api/json/v1/1/random.php')
-      .subscribe(res => {
-        this.plato = res.meals[0];
-      });
+      const plato = platoData.meals?.[0];
+      const bebida = bebidaData.drinks?.[0];
 
-    this.http
-      .get<any>('https://www.thecocktaildb.com/api/json/v1/1/random.php')
-      .subscribe(res => {
-        this.bebida = res.drinks[0];
-      });
+      this.platoEstrella = plato ? {
+        id: plato.idMeal,
+        nombre: plato.strMeal,
+        imagen: plato.strMealThumb,
+        categoria: plato.strCategory,
+        origen: plato.strArea
+      } : null;
+
+      this.bebidaEstrella = bebida ? {
+        id: bebida.idDrink,
+        nombre: bebida.strDrink,
+        imagen: bebida.strDrinkThumb,
+        categoria: bebida.strCategory,
+        tipo: bebida.strAlcoholic
+      } : null;
+
+      if (!this.bebidaEstrella) {
+        this.bebidaEstrella = {
+          nombre: 'Margarita',
+          imagen: '/manila-bebiba.jpg',
+          categoria: 'Bebida destacada',
+          tipo: 'Sin datos'
+        };
+      }
+
+    } catch {
+      this.mensaje = 'No se pudo cargar la información destacada.';
+      this.bebidaEstrella = {
+        nombre: 'Bebida estrella',
+        imagen: '/manila-bebiba.jpg',
+        categoria: 'Bebida destacada',
+        tipo: 'Sin datos'
+      };
+    } finally {
+      this.cargando = false;
+    }
   }
 }
