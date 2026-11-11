@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Bebida } from '../../models/bebida';
 
 @Component({
   selector: 'app-bebidas',
@@ -14,7 +15,7 @@ export class Bebidas implements OnInit {
   ingrediente = '';
   tipo = '';
   categoria = '';
-  bebidas: any[] = [];
+  bebidas: Bebida[] = [];
   cargando = false;
   mensaje = '';
 
