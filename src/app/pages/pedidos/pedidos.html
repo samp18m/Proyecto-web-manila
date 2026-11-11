@@ -1,38 +1,108 @@
-<section class="container py-5">
-  <h1 class="text-center mb-4">Realiza tu pedido</h1>
+<div class="pedidos-container">
 
-  <div class="row mb-4">
-    <div class="col-md-4">
-      <input class="form-control" [(ngModel)]="nombre" placeholder="Nombre completo">
+  <h1>Tu pedido</h1>
+
+  <div class="datos-cliente">
+
+    <div class="campo">
+      <label>Nombre</label>
+      <input
+        type="text"
+        [(ngModel)]="nombre"
+        placeholder="Tu nombre"
+      >
     </div>
-    <div class="col-md-4">
-      <input class="form-control" [(ngModel)]="celular" placeholder="Celular">
+
+    <div class="campo">
+      <label>Celular</label>
+      <input
+        type="text"
+        [(ngModel)]="celular"
+        placeholder="Tu celular"
+      >
     </div>
-    <div class="col-md-4">
-      <input class="form-control" [(ngModel)]="direccion" placeholder="Dirección">
+
+    <div class="campo">
+      <label>Dirección</label>
+      <input
+        type="text"
+        [(ngModel)]="direccion"
+        placeholder="Tu dirección"
+      >
     </div>
+
   </div>
 
-  <div *ngIf="cargando" class="text-center">Cargando productos...</div>
-  <div *ngIf="mensaje" class="text-center">{{ mensaje }}</div>
+  <div *ngIf="cargando" class="estado">
+    Cargando productos...
+  </div>
 
-  <div class="row g-4">
-    <div class="col-md-4" *ngFor="let producto of productos">
-      <div class="card h-100">
-        <img [src]="producto.imagen" class="card-img-top" [alt]="producto.nombre">
-        <div class="card-body">
-          <h5>{{ producto.nombre }}</h5>
-          <p>{{ producto.tipo }}</p>
-          <p class="fw-bold">$ {{ producto.precio }}</p>
-          <label>Cantidad</label>
-          <input type="number" min="0" class="form-control" [(ngModel)]="producto.cantidad">
+  <div *ngIf="mensaje" class="estado error">
+    {{ mensaje }}
+  </div>
+
+  <div *ngIf="!cargando && productos.length > 0" class="lista-productos">
+
+    <article class="producto" *ngFor="let producto of productos">
+
+      <img [src]="producto.imagen" [alt]="producto.nombre">
+
+      <div class="info">
+
+        <h3>{{ producto.nombre }}</h3>
+
+        <p><strong>Tipo:</strong> {{ producto.tipo }}</p>
+
+        <p>
+          <strong>Precio:</strong>
+          ${{ producto.precio | number:'1.0-0' }}
+        </p>
+
+        <div class="cantidad">
+
+          <button type="button" (click)="disminuirCantidad(producto)">-</button>
+
+          <span>{{ producto.cantidad }}</span>
+
+          <button type="button" (click)="aumentarCantidad(producto)">+</button>
+
         </div>
+
+        <p>
+          <strong>Subtotal:</strong>
+          ${{ (producto.precio * producto.cantidad) | number:'1.0-0' }}
+        </p>
+
+        <button
+          type="button"
+          class="btn-eliminar"
+          (click)="eliminarProducto(producto)"
+        >
+          Eliminar
+        </button>
+
       </div>
-    </div>
+
+    </article>
+
   </div>
 
-  <div class="mt-4 p-4 bg-white rounded shadow-sm">
-    <h3>Total: $ {{ total }}</h3>
-    <button class="btn btn-dark" (click)="confirmarPedido()">Confirmar pedido y descargar PDF</button>
+  <div *ngIf="!cargando && productos.length === 0" class="estado">
+    No hay productos en el pedido.
   </div>
-</section>
+
+  <div class="resumen" *ngIf="!cargando && productos.length > 0">
+
+    <h2>Total a pagar: ${{ total | number:'1.0-0' }}</h2>
+
+    <button
+      type="button"
+      class="btn-confirmar"
+      (click)="confirmarPedido()"
+    >
+      Confirmar pedido
+    </button>
+
+  </div>
+
+</div>

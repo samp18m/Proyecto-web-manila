@@ -1,4 +1,3 @@
-
 <div class="bebidas-container">
 
   <header class="encabezado">
@@ -14,11 +13,7 @@
 
   </header>
 
-  <!-- FILTROS -->
-
   <section class="filtros">
-
-    <!-- BUSCAR POR NOMBRE -->
 
     <div class="filtro">
 
@@ -45,8 +40,6 @@
 
     </div>
 
-    <!-- BUSCAR POR INGREDIENTE -->
-
     <div class="filtro">
 
       <label>Buscar por ingrediente</label>
@@ -72,8 +65,6 @@
 
     </div>
 
-    <!-- FILTRO POR TIPO -->
-
     <div class="filtro">
 
       <label>Tipo de bebida</label>
@@ -97,8 +88,6 @@
       </select>
 
     </div>
-
-    <!-- FILTRO POR CATEGORÍA -->
 
     <div class="filtro">
 
@@ -134,8 +123,6 @@
 
   </section>
 
-  <!-- ESTADO DE CARGA -->
-
   <div *ngIf="cargando" class="estado">
 
     <h3>Cargando catálogo de bebidas...</h3>
@@ -156,16 +143,12 @@
 
   </div>
 
-  <!-- MENSAJES -->
-
   <div
     *ngIf="mensaje && !cargando"
     class="mensaje"
   >
     {{ mensaje }}
   </div>
-
-  <!-- RESULTADOS -->
 
   <section *ngIf="!cargando">
 
@@ -178,8 +161,6 @@
       </span>
 
     </div>
-
-    <!-- TARJETAS -->
 
     <div class="grid-bebidas">
 
@@ -213,8 +194,6 @@
 
           </div>
 
-          <!-- PRECIO -->
-
           <div class="precio">
 
             <span>Precio</span>
@@ -225,20 +204,24 @@
 
           </div>
 
-          <!-- INGREDIENTES -->
+          <button
+            type="button"
+            class="btn-pedido"
+            (click)="agregarAPedido(bebida)"
+          >
+            Añadir a pedido
+          </button>
 
           <button
             type="button"
             class="btn-ingredientes"
             (click)="verIngredientes(bebida)"
           >
-
             {{
               bebida.mostrarIngredientes
                 ? 'Ocultar ingredientes'
                 : 'Ver ingredientes'
             }}
-
           </button>
 
           <div
@@ -267,8 +250,6 @@
       </article>
 
     </div>
-
-    <!-- SIN RESULTADOS -->
 
     <div
       *ngIf="bebidas.length === 0 && !cargando"

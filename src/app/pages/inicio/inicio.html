@@ -2,46 +2,115 @@
 
   <section class="hero">
     <div class="hero-texto">
-      <h1>  MANILA.  </h1>
+      <h1>MANILA</h1>
       <p>
-        Un espacio para disfrutar platos y bebidas especiales,
-        con una experiencia visual y gastronómica única.
+        Un restaurante donde los sabores, la creatividad y la experiencia
+        se combinan para ofrecer momentos únicos.
       </p>
     </div>
   </section>
 
+
   <section class="galeria">
+
     <h2>Conoce nuestro restaurante</h2>
 
+    <p>
+      Bienvenido a MANILA, un lugar creado para disfrutar sabores únicos,
+      platos especiales y bebidas irresistibles en un ambiente moderno y
+      acogedor. Descubre una selección de comidas y cócteles preparados
+      para convertir cada visita en una experiencia memorable.
+    </p>
+
+
     <div class="galeria-grid">
-      <img src="manila-restaurante.jpg" alt="Foto del restaurante">
-      <img src="manila-comida.jpg" alt="Foto de la comida">
-      <img src="manila-bebida.jpg" alt="Foto de la bebida">
+
+      <img 
+        src="manila-restaurante.jpg" 
+        alt="Interior del restaurante Manila">
+
+      <img 
+        src="manila-comida.jpg" 
+        alt="Plato especial preparado en Manila">
+
+      <img 
+        src="manila-bebida.jpg" 
+        alt="Bebida destacada del restaurante Manila">
+
     </div>
+
   </section>
 
+
   <section class="destacados">
+
     <h2>Lo más destacado</h2>
 
     <div class="cards">
+
+
       <article class="card" *ngIf="platoEstrella">
-        <img [src]="platoEstrella.imagen" [alt]="platoEstrella.nombre">
+
+        <img 
+          [src]="platoEstrella.imagen" 
+          [alt]="platoEstrella.nombre">
+
         <div class="card-content">
+
           <h3>Plato estrella</h3>
-          <h4>{{ platoEstrella.nombre }}</h4>
-          <p><strong>Categoría:</strong> {{ platoEstrella.categoria }}</p>
-          <p><strong>Origen:</strong> {{ platoEstrella.origen }}</p>
+
+          <h4>
+            {{ platoEstrella.nombre }}
+          </h4>
+
+          <p>
+            <strong>Categoría:</strong>
+            {{ platoEstrella.categoria }}
+          </p>
+
+          <p>
+            <strong>Origen:</strong>
+            {{ platoEstrella.origen }}
+          </p>
+
         </div>
+
       </article>
 
+
+
       <article class="card" *ngIf="bebidaEstrella">
-        <img [src]="bebidaEstrella.imagen" [alt]="bebidaEstrella.nombre">
+
+        <img 
+          [src]="bebidaEstrella.imagen" 
+          [alt]="bebidaEstrella.nombre">
+
         <div class="card-content">
+
           <h3>Bebida estrella</h3>
-          <h4>{{ bebidaEstrella.nombre }}</h4>
-          <p><strong>Categoría:</strong> {{ bebidaEstrella.categoria }}</p>
-          <p><strong>Tipo:</strong> {{ bebidaEstrella.tipo }}</p>
+
+          <h4>
+            {{ bebidaEstrella.nombre }}
+          </h4>
+
+          <p>
+            <strong>Categoría:</strong>
+            {{ bebidaEstrella.categoria }}
+          </p>
+
+          <p>
+            <strong>Tipo:</strong>
+            {{ bebidaEstrella.tipo }}
+          </p>
+
         </div>
+
       </article>
+
+
     </div>
+
   </section>
+
+
+</div>

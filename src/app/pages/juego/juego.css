@@ -1,26 +1,376 @@
-.juego-grid {
-  grid-template-columns: repeat(4, 120px);
-  justify-content: center;
-  gap: 12px;
+
+.juego-container {
+  max-width: 1050px;
+  margin: 0 auto;
+  padding: 28px 20px;
+  color: #173b2c;
 }
 
-.carta {
-  width: 120px;
-  height: 120px;
-  border: 2px solid #173b2c;
+.juego-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.etiqueta {
+  color: #b58a45;
+  font-size: 12px;
+  letter-spacing: 3px;
+  font-weight: bold;
+}
+
+.juego-header h1 {
+  font-size: 2.5rem;
+  margin: 10px 0;
+  color: #173b2c;
+}
+
+.juego-header p {
+  color: #777;
+  line-height: 1.6;
+}
+
+.cargando {
+  text-align: center;
+  padding: 50px 15px;
+  background: #f7f7f5;
+  border-radius: 15px;
+}
+
+/* OBJETIVOS */
+
+.objetivos {
+  margin-bottom: 28px;
+}
+
+.objetivos h2 {
+  text-align: center;
+  margin-bottom: 18px;
+}
+
+.objetivos-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.objetivo-card {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 14px;
+  border: 2px solid #eee;
+  border-radius: 15px;
+  background: white;
+  transition: border-color 0.2s;
+}
+
+.objetivo-card.completado {
+  border-color: #27845b;
+  background: #f0f8f2;
+}
+
+.objetivo-card img {
+  width: 105px;
+  height: 95px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.objetivo-info h3 {
+  margin: 0 0 6px;
+}
+
+.objetivo-info p {
+  margin: 0 0 8px;
+  font-size: 14px;
+}
+
+.objetivo-info span {
+  font-size: 12px;
+  color: #b58a45;
+  font-weight: bold;
+}
+
+.objetivo-card.completado .objetivo-info span {
+  color: #27845b;
+}
+
+/* ESTADÍSTICAS */
+
+.estadisticas {
+  display: flex;
+  justify-content: center;
+  gap: 18px;
+  margin: 22px 0;
+}
+
+.estadisticas div {
+  min-width: 115px;
+  text-align: center;
+  padding: 13px;
+  background: #f5f4f0;
   border-radius: 12px;
+}
+
+.estadisticas strong {
+  display: block;
+  color: #173b2c;
+  font-size: 24px;
+}
+
+.estadisticas span {
+  font-size: 12px;
+  color: #777;
+}
+
+/* MENSAJES */
+
+.mensaje,
+.aviso {
+  text-align: center;
+  padding: 13px;
+  margin: 15px 0;
+  border-radius: 10px;
+  background: #fff5e4;
+  color: #795620;
+}
+
+.mensaje.exito {
+  background: #e5f4e9;
+  color: #22643d;
+  font-weight: bold;
+}
+
+.aviso {
+  font-size: 13px;
+}
+
+/* TABLERO */
+
+.tablero {
+  text-align: center;
+}
+
+.tablero h2 {
+  color: #173b2c;
+  margin-bottom: 5px;
+}
+
+.tablero > p {
+  color: #888;
+  margin-bottom: 20px;
+}
+
+.matriz {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 13px;
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+/* CARTAS */
+
+.carta {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  min-width: 0;
+  border: 2px solid #173b2c;
+  border-radius: 14px;
+  padding: 0;
+  overflow: hidden;
+  cursor: pointer;
   background: #173b2c;
-  color: white;
-  font-size: 32px;
+  transition: transform 0.2s, border-color 0.2s;
+}
+
+.carta:not(:disabled):hover {
+  transform: translateY(-3px);
+  border-color: #d6a85f;
+}
+
+.carta:disabled {
+  cursor: default;
+}
+
+.dorso {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  background: #173b2c;
+  color: #d6a85f;
+}
+
+.logo {
+  font-size: 25px;
+  font-weight: bold;
+  border: 2px solid #d6a85f;
+  border-radius: 50%;
+  width: 43px;
+  height: 43px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.texto-dorso {
+  font-size: 10px;
+  letter-spacing: 2px;
+}
+
+.signo {
+  font-size: 19px;
+  font-weight: bold;
+}
+
+/* IMÁGENES ENCONTRADAS */
+
+.cara {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  background: white;
   overflow: hidden;
 }
 
-.carta img {
+.cara img {
   width: 100%;
-  height: 100%;
+  height: 78%;
   object-fit: cover;
 }
 
+.cara > span {
+  color: #173b2c;
+  font-size: 11px;
+  font-weight: bold;
+  padding: 4px;
+}
+
 .carta.encontrada {
-  opacity: 0.8;
+  border: 3px solid #27845b;
+}
+
+/* CASILLA INCORRECTA */
+
+.error-carta {
+  justify-content: center;
+  align-items: center;
+  background: #f5ece8;
+  color: #a44838;
+  gap: 6px;
+}
+
+.error-carta > span {
+  color: #a44838;
+  font-size: 35px;
+}
+
+.error-carta small {
+  font-size: 10px;
+}
+
+/* VICTORIA */
+
+.victoria {
+  text-align: center;
+  margin: 30px auto;
+  padding: 30px 20px;
+  border-radius: 17px;
+  background: #eef7ed;
+  max-width: 600px;
+}
+
+.icono-victoria {
+  font-size: 45px;
+  color: #b58a45;
+}
+
+.victoria h2 {
+  color: #173b2c;
+}
+
+.victoria p {
+  color: #5c6c5e;
+  line-height: 1.5;
+}
+
+.resultado {
+  font-weight: bold;
+}
+
+/* BOTONES */
+
+.acciones {
+  text-align: center;
+  margin: 25px 0;
+}
+
+.btn-reiniciar,
+.victoria button {
+  padding: 13px 25px;
+  border: none;
+  background: #173b2c;
+  color: white;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.btn-reiniciar:hover,
+.victoria button:hover {
+  background: #285640;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 600px) {
+
+  .juego-container {
+    padding: 18px 12px;
+  }
+
+  .juego-header h1 {
+    font-size: 1.9rem;
+  }
+
+  .objetivos-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .objetivo-card img {
+    width: 85px;
+    height: 85px;
+  }
+
+  .matriz {
+    gap: 7px;
+  }
+
+  .carta {
+    border-radius: 9px;
+  }
+
+  .logo {
+    width: 30px;
+    height: 30px;
+    font-size: 18px;
+  }
+
+  .texto-dorso {
+    font-size: 8px;
+  }
+
+  .signo {
+    font-size: 15px;
+  }
+
+  .cara > span {
+    font-size: 9px;
+  }
+
 }

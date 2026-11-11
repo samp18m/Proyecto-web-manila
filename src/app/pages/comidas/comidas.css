@@ -5,7 +5,7 @@
 }
 
 h1 {
-  margin-bottom: 20px;
+  margin-bottom: 30px;
   color: #173b2c;
 }
 
@@ -115,17 +115,66 @@ h1 {
 }
 
 .ingredientes {
-  margin: 12px 0 0;
-  padding-left: 18px;
+  margin: 18px 0 0;
+  padding-left: 30px;
 }
 
 .precio {
   color: #173b2c;
   font-size: 1.1rem;
-  font-weight: 600;
-  margin: 12px 0;
+  font-weight: 700;
+  margin: 20px 2px;
 }
 
 .precio strong {
   color: #d6a85f;
+}
+
+.btn-pedido,
+.btn-ingredientes {
+  width: 100%;
+  padding: 12px 14px;
+  border: none;
+  border-radius: 12px;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  display: block;
+  margin-top: 10px;
+}
+
+.btn-pedido {
+  background: #d6a85f;
+}
+
+.btn-pedido:hover {
+  background: #b88a43;
+}
+
+.btn-ingredientes {
+  background: #173b2c;
+}
+
+.btn-ingredientes:hover {
+  background: #285640;
+}
+
+.btn-pedido:hover {
+  background: #b88a43;
+}
+
+
+.galeria-grid img {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 15px;
+}
+.imagen-comida {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  object-position: 85% 50%;
+  border-radius: 15px;
 }

@@ -1,14 +1,16 @@
-
 <div class="comidas-container">
 
   <h1>Nuestras mejores comidas</h1>
+  
+  <img 
+  src="manila-comida.jpg" 
+  alt="Plato especial preparado en Manila"
+  class="imagen-comida">
 
   <p>
     Descubre nuestra variedad de platos y encuentra
     tus favoritos en Manila.
   </p>
-
-  <!-- BUSCADORES -->
 
   <div class="buscadores">
 
@@ -66,19 +68,13 @@
 
   </div>
 
-  <!-- CARGANDO -->
-
   <div *ngIf="cargando" class="estado">
     <p>Buscando comidas...</p>
   </div>
 
-  <!-- MENSAJE -->
-
   <div *ngIf="mensaje" class="estado error">
     {{ mensaje }}
   </div>
-
-  <!-- VISTA POR CATEGORÍAS -->
 
   <ng-container *ngIf="vista === 'categorias'">
 
@@ -94,44 +90,51 @@
 
       <div class="grid">
 
-      <article class="card" *ngFor="let comida of seccion.comidas">
+        <article class="card" *ngFor="let comida of seccion.comidas">
 
-  <img
-    [src]="comida.strMealThumb"
-    [alt]="comida.strMeal"
-    loading="lazy"
-  >
+          <img
+            [src]="comida.strMealThumb"
+            [alt]="comida.strMeal"
+            loading="lazy"
+          >
 
-  <div class="contenido">
+          <div class="contenido">
 
-    <h3>{{ comida.strMeal }}</h3>
+            <h3>{{ comida.strMeal }}</h3>
 
-    <p class="precio">
-      Precio:
-      <strong>
-${{ comida.precio | number:'1.0-0' }} COP      </strong>
-    </p>
+            <p class="precio">
+              Precio:
+              <strong>
+                ${{ comida.precio | number:'1.0-0' }} COP
+              </strong>
+            </p>
 
-    <button type="button" (click)="verIngredientes(comida)">
-      {{ comida.mostrarIngredientes ? 'Ocultar ingredientes' : 'Ver ingredientes' }}
-    </button>
+            <button
+              type="button"
+              class="btn-pedido"
+              (click)="agregarAPedido(comida)"
+            >
+              Añadir a pedido
+            </button>
 
-    <ul *ngIf="comida.mostrarIngredientes" class="ingredientes">
-      <li *ngFor="let ing of comida.ingredientes">
-        {{ ing }}
-      </li>
-    </ul>
+            <button type="button" (click)="verIngredientes(comida)">
+              {{ comida.mostrarIngredientes ? 'Ocultar ingredientes' : 'Ver ingredientes' }}
+            </button>
 
-  </div>
-</article>
+            <ul *ngIf="comida.mostrarIngredientes" class="ingredientes">
+              <li *ngFor="let ing of comida.ingredientes">
+                {{ ing }}
+              </li>
+            </ul>
+
+          </div>
+        </article>
 
       </div>
 
     </section>
 
   </ng-container>
-
-  <!-- VISTA DE RESULTADOS DE BÚSQUEDA -->
 
   <ng-container *ngIf="vista === 'resultados'">
 
@@ -161,10 +164,20 @@ ${{ comida.precio | number:'1.0-0' }} COP      </strong>
             {{ comida.categoria }}
           </p>
 
-          <p>
-            <strong>Precio:</strong>
-            ${{ comida.precio | number:'1.0-0':'es-CO' }}
+          <p class="precio">
+            Precio:
+            <strong>
+              ${{ comida.precio | number:'1.0-0' }} COP
+            </strong>
           </p>
+
+          <button
+            type="button"
+            class="btn-pedido"
+            (click)="agregarAPedido(comida)"
+          >
+            Añadir a pedido
+          </button>
 
           <button
             type="button"

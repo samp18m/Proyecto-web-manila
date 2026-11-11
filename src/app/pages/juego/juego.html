@@ -1,32 +1,292 @@
-<section class="container py-5 text-center">
-  <h1>Juego de memoria</h1>
-  <p>Encuentra las parejas de comida y bebida.</p>
 
-  <div class="text-center mb-4">
-    <button class="btn btn-primary me-2" (click)="nuevaPartida()">Nueva partida</button>
-    <button class="btn btn-secondary" (click)="nuevaPartida()">Reiniciar partida</button>
+<div class="juego-container">
+
+  <!-- ENCABEZADO -->
+
+  <header class="juego-header">
+
+    <span class="etiqueta">MANILA EXPERIENCE</span>
+
+    <h1>Encuentra tu combo</h1>
+
+    <p>
+      Encuentra el plato y la bebida escondidos
+      en nuestra matriz de 16 tarjetas.
+    </p>
+
+  </header>
+
+  <!-- CARGANDO -->
+
+  <div *ngIf="cargando" class="cargando">
+
+    <h3>Preparando el juego...</h3>
+
+    <p>Seleccionando el plato y la bebida.</p>
+
   </div>
 
-  <div class="mb-3">
-    <strong>Movimientos:</strong> {{ movimientos }} |
-    <strong>Parejas:</strong> {{ parejas }}/8
-  </div>
+  <ng-container *ngIf="!cargando">
 
-  <div class="d-grid juego-grid">
-    <button
-      class="carta"
-      *ngFor="let carta of cartas"
-      (click)="seleccionar(carta)"
-      [disabled]="carta.abierta || carta.encontrada || bloqueado"
-      [class.encontrada]="carta.encontrada">
+    <!-- OBJETIVOS -->
 
-      <img *ngIf="carta.abierta || carta.encontrada" [src]="carta.imagen" alt="carta">
-      <span *ngIf="!carta.abierta && !carta.encontrada">M</span>
-    </button>
-  </div>
+    <section class="objetivos">
 
-  <div *ngIf="terminado" class="mt-4 p-4 bg-white rounded shadow-sm">
-    <h3>¡Ganaste!</h3>
-    <button class="btn btn-success" (click)="nuevaPartida()">Jugar otra vez</button>
-  </div>
-</section>
+      <h2>Encuentra estas dos imágenes</h2>
+
+      <div class="objetivos-grid">
+
+        <!-- PLATO -->
+
+        <article
+          class="objetivo-card"
+          [class.completado]="encontradoPlato"
+        >
+
+          <img
+            *ngIf="platoObjetivo"
+            [src]="platoObjetivo.imagen"
+            [alt]="platoObjetivo.nombre"
+          >
+
+          <div class="objetivo-info">
+
+            <h3>Plato</h3>
+
+            <p>{{ platoObjetivo?.nombre }}</p>
+
+            <span *ngIf="encontradoPlato">
+              ✓ Encontrado
+            </span>
+
+            <span *ngIf="!encontradoPlato">
+              Por encontrar
+            </span>
+
+          </div>
+
+        </article>
+
+        <!-- BEBIDA -->
+
+        <article
+          class="objetivo-card"
+          [class.completado]="encontradoBebida"
+        >
+
+          <img
+            *ngIf="bebidaObjetivo"
+            [src]="bebidaObjetivo.imagen"
+            [alt]="bebidaObjetivo.nombre"
+          >
+
+          <div class="objetivo-info">
+
+            <h3>Bebida</h3>
+
+            <p>{{ bebidaObjetivo?.nombre }}</p>
+
+            <span *ngIf="encontradoBebida">
+              ✓ Encontrada
+            </span>
+
+            <span *ngIf="!encontradoBebida">
+              Por encontrar
+            </span>
+
+          </div>
+
+        </article>
+
+      </div>
+
+    </section>
+
+    <!-- ESTADÍSTICAS -->
+
+    <div class="estadisticas">
+
+      <div>
+        <strong>{{ intentos }}</strong>
+        <span>Intentos</span>
+      </div>
+
+      <div>
+        <strong>
+          {{ (encontradoPlato ? 1 : 0) +
+             (encontradoBebida ? 1 : 0) }}/2
+        </strong>
+        <span>Objetivos</span>
+      </div>
+
+    </div>
+
+    <!-- MENSAJE -->
+
+    <div
+      *ngIf="aviso"
+      class="aviso"
+    >
+      {{ aviso }}
+    </div>
+
+    <div
+      *ngIf="mensaje"
+      class="mensaje"
+      [class.exito]="juegoTerminado"
+    >
+      {{ mensaje }}
+    </div>
+
+    <!-- TABLERO -->
+
+    <section class="tablero">
+
+      <h2>Encuentra las imágenes</h2>
+
+      <p>Selecciona las tarjetas para descubrirlas.</p>
+
+      <div class="matriz">
+
+        <button
+          type="button"
+          class="carta"
+          *ngFor="let carta of cartas"
+          [class.descubierta]="carta.descubierta"
+          [class.encontrada]="carta.encontrada"
+          [class.vacia]="carta.tipo === 'vacia' && carta.descubierta"
+          [disabled]="
+            bloqueado ||
+            juegoTerminado ||
+            carta.encontrada ||
+            cargando
+          "
+          (click)="seleccionarCarta(carta)"
+        >
+
+          <!-- PARTE OCULTA -->
+
+          <div
+            class="dorso"
+            *ngIf="!carta.descubierta"
+          >
+
+            <span class="logo">M</span>
+
+            <span class="texto-dorso">MANILA</span>
+
+            <span class="signo">?</span>
+
+          </div>
+
+          <!-- PLATO ENCONTRADO -->
+
+          <div
+            class="cara"
+            *ngIf="
+              carta.descubierta &&
+              carta.tipo === 'plato'
+            "
+          >
+
+            <img
+              [src]="platoObjetivo?.imagen"
+              alt="Plato encontrado"
+            >
+
+            <span>PLATO</span>
+
+          </div>
+
+          <!-- BEBIDA ENCONTRADA -->
+
+          <div
+            class="cara"
+            *ngIf="
+              carta.descubierta &&
+              carta.tipo === 'bebida'
+            "
+          >
+
+            <img
+              [src]="bebidaObjetivo?.imagen"
+              alt="Bebida encontrada"
+            >
+
+            <span>BEBIDA</span>
+
+          </div>
+
+          <!-- CASILLA VACÍA -->
+
+          <div
+            class="cara error-carta"
+            *ngIf="
+              carta.descubierta &&
+              carta.tipo === 'vacia'
+            "
+          >
+
+            <span>✕</span>
+
+            <small>Intenta otra vez</small>
+
+          </div>
+
+        </button>
+
+      </div>
+
+    </section>
+
+    <!-- VICTORIA -->
+
+    <section
+      *ngIf="juegoTerminado"
+      class="victoria"
+    >
+
+      <span class="icono-victoria">★</span>
+
+      <h2>¡Excelente trabajo!</h2>
+
+      <p>
+        Encontraste el plato y la bebida.
+        Has completado el reto MANILA.
+      </p>
+
+      <p class="resultado">
+        Completaste el juego en {{ intentos }} intentos.
+      </p>
+
+      <button
+        type="button"
+        (click)="reiniciarJuego()"
+      >
+        Jugar nuevamente
+      </button>
+
+    </section>
+
+    <!-- REINICIAR -->
+
+    <div
+      class="acciones"
+      *ngIf="!juegoTerminado"
+    >
+
+      <button
+        type="button"
+        class="btn-reiniciar"
+        (click)="reiniciarJuego()"
+      >
+
+        Reiniciar juego
+
+      </button>
+
+    </div>
+
+  </ng-container>
+
+</div>

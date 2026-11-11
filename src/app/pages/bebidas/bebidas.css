@@ -309,3 +309,35 @@
   }
 
 }
+.btn-pedido {
+  margin-top: 10px;
+  width: 100%;
+  padding: 11px;
+  border: none;
+  border-radius: 10px;
+  background: #d6a85f;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-pedido:hover {
+  background: #b88a43;
+}
+
+.btn-pedido {
+  width: 100%;
+  margin: 10px 0 8px;
+  padding: 11px;
+  border: none;
+  border-radius: 10px;
+  background: #d6a85f;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.btn-pedido:hover {
+  background: #b88a43;
+}
